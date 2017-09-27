@@ -1,24 +1,27 @@
 package net.ddns.frosqh.botpaikea;
 
-import android.os.Looper;
-
-import java.io.IOException;
+import android.view.View;
 
 /**
  * Created by Frosqh on 19/09/2017.
  */
 
-public class SoloPlayingThread implements Runnable{
+public class ChangeLoadingThread implements Runnable{
 
-    private final String text2;
+    private final boolean b2;
 
-    public SoloPlayingThread(String text){
-       text2 = text;
+    public ChangeLoadingThread(Boolean b){
+       b2=b;
     }
 
     @Override
     public void run() {
-        SecondActivity.isPlaying.setText(text2);
+        if (b2) {
+            MainActivity.loading.setVisibility(View.VISIBLE);
+        } else{
+            MainActivity.loading.setVisibility(View.GONE);
+        }
+
     }
 
 }

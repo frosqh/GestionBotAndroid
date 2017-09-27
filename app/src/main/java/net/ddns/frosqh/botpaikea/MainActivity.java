@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public static View view;
     public static ClientThread ct;
     private Thread ma;
+    public static ProgressBar loading;
     //private ClientTask cp;
 
     public static SortedMap<String, ArrayList<String>> getMapSong() {
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         File fav = new File("favorite");
 
+        loading = (ProgressBar) findViewById(R.id.progressBar);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 view = v;
                 String ip = ((EditText) findViewById(R.id.editText)).getText().toString();
                 Log.d("DEBUG_CONNECT", "Def MA");
+                ProgressBar loading = (ProgressBar) findViewById(R.id.progressBar);
+                loading.setVisibility(View.VISIBLE);
                 Thread t = new Thread(new MainThread(ip, MainActivity.this));
                 t.start();
                 /*if (cp != null){

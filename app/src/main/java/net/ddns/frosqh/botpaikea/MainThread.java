@@ -28,14 +28,27 @@ public class MainThread implements Runnable{
             ct = new ClientThread(ip, this);
             MainActivity.ct = ct;
             new Thread(ct).start();
+            new Thread(new WaitThread(this)).start();
             synchronized(this){
                 wait();
             }
+            Thread t2 = new Thread(new ChangeLoadingThread(false));
+            main.runOnUiThread(t2);
             main.next();
         } catch (UnknownHostException e) {
+            Thread t2 = new Thread(new ChangeLoadingThread(false));
+            main.runOnUiThread(t2);
             MainActivity.showError(e.getMessage());
         } catch (InterruptedException e) {
+            Thread t2 = new Thread(new ChangeLoadingThread(false));
+            main.runOnUiThread(t2);
             e.printStackTrace();
         }
+    }
+
+    public void bite() {
+        Thread t2 = new Thread(new ChangeLoadingThread(false));
+        main.runOnUiThread(t2);
+        MainActivity.showError("Server not connected");
     }
 }

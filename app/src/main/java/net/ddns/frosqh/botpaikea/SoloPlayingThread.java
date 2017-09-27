@@ -8,26 +8,17 @@ import java.io.IOException;
  * Created by Frosqh on 19/09/2017.
  */
 
-public class PlayingThread implements Runnable{
+public class SoloPlayingThread implements Runnable{
+
+    private final String text2;
+
+    public SoloPlayingThread(String text){
+       text2 = text;
+    }
 
     @Override
     public void run() {
-        Looper.prepare();
-        while(true) {
-            try {
-                String[] playing = MainActivity.ct.getPlaying();
-                SecondActivity.isPlaying.setText(playing[0] + "\n" + playing[1]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                synchronized (this) {
-                    this.wait(30 * 1000);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        SecondActivity.isPlaying.setText(text2);
     }
 
 }

@@ -20,8 +20,8 @@ public class ClientThread implements Runnable{
     final static int port = 2302;
     private MainThread ma = null;
     private Socket socket;
-    private BufferedReader in = null;
-    private PrintStream out = null;
+    public BufferedReader in = null;
+    public PrintStream out = null;
     public InetAddress serveur;
 
     public ClientThread(String ip) throws UnknownHostException {
@@ -39,7 +39,9 @@ public class ClientThread implements Runnable{
         Looper.prepare();
         try {
             socket = new Socket(serveur, port);
-            socket.setSoTimeout(0);
+            socket.setSoTimeout(5);
+            Log.d("BITE", String.valueOf(socket.isConnected()));
+
 
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintStream(socket.getOutputStream());
@@ -80,21 +82,21 @@ public class ClientThread implements Runnable{
 
     }
 
-    public void playPause() throws IOException {
+    /*public void playPause() throws IOException {
         String receivedData;
         out.println("playPause");
-    }
+    }*/
 
-    public void next() throws IOException{
+    /*public void next() throws IOException{
         String receivedData;
         out.println("next");
-    }
+    }*/
 
-    public void vlaLaChanson(String song) throws IOException{
+    /*public void vlaLaChanson(String song) throws IOException{
         String receivedData;
         out.println("vlalachanson"+song);
         while((receivedData = in.readLine())==null);
-    }
+    }*/
 
     public String[] getPlaying() throws IOException {
         String[] playing = new String[2];
