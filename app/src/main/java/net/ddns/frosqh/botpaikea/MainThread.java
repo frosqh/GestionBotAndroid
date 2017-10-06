@@ -28,10 +28,12 @@ public class MainThread implements Runnable{
             ct = new ClientThread(ip, this);
             MainActivity.ct = ct;
             new Thread(ct).start();
-            new Thread(new WaitThread(this)).start();
+            Thread waitThread = new Thread(new WaitThread(this));
+            waitThread.start();
             synchronized(this){
                 wait();
             }
+            waitThread.interrupt();
             Thread t2 = new Thread(new ChangeLoadingThread(false));
             main.runOnUiThread(t2);
             main.next();

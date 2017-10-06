@@ -39,7 +39,7 @@ public class ClientThread implements Runnable{
         Looper.prepare();
         try {
             socket = new Socket(serveur, port);
-            socket.setSoTimeout(5);
+            socket.setSoTimeout(0);
             Log.d("BITE", String.valueOf(socket.isConnected()));
 
 
